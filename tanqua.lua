@@ -10,6 +10,8 @@ local database = require("database")
 local theme = require("theme")
 local images = require("images")
 local widgets = require("widgets")
+local main_menu = require("main_menu")
+local backstack = require("backstack")
 
 local img = {
   db = lvgl.ImgData("//lua/img/db.png"),
@@ -56,6 +58,7 @@ function widgets.StatusBar(parent, opts)
   if not opts.back_cb then
     opts.back_cb = function()
       theme.load_theme("/sd/.themes/tanqua.lua")
+      backstack.reset(main_menu:new())
     end
   end
   if opts.title == "" or not opts.title then
