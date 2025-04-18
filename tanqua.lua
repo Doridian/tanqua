@@ -60,9 +60,10 @@ function widgets.StatusBar(parent, opts)
       theme.load_theme("/sd/.themes/tanqua.lua")
       backstack.reset(main_menu:new())
     end
+    opts.title = "< Reload theme"
   end
   if opts.title == "" or not opts.title then
-    opts.title = "< Reload theme"
+    opts.title = "Test Title"
   end
 
   if opts.back_cb or true then
