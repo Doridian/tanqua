@@ -252,7 +252,7 @@ local theme = {
     {lvgl.PART.MAIN, lvgl.Style {
       bg_opa = lvgl.OPA(100),
       bg_color = background_color,
-      margin_top = 2,
+      margin_top = 1,
     }},
   },
   status_bar = {
@@ -263,6 +263,7 @@ local theme = {
       bg_image_src = lvgl.ImgData("//sd/.themes/tanqua/statusbar.png"),
       bg_image_tiled = false,
       margin_top = 0,
+      margin_bottom = 1,
       pad_top = 0,
     }},
   },
