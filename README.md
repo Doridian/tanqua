@@ -1,8 +1,10 @@
 # tanqua
 
-## TODO
+## Tangara notes
 
 - Resolution: 160x128
+
+## TODO
 
 - Add right chevron to menu items with submenus
 
