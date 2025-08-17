@@ -14,7 +14,7 @@ local highlight_end_color = "#0e6bb1"
 local disabled_highlight_start_color = "#d1d1d1"
 local disabled_highlight_end_color = "#b1b1b1"
 
-local battery_width = 17.0
+local battery_full_width = 17.0
 local battery_low_img = lvgl.ImgData("//sd/.themes/tanqua/battery_low.png")
 
 local function highlighted_bg(obj)
@@ -38,6 +38,22 @@ local function disabled_highlighted_bg(obj)
   obj.bg_grad_color = disabled_highlight_end_color
   obj.image_recolor_opa = lvgl.OPA(100)
   obj.image_recolor = "#ffffff"
+  return lvgl.Style(obj)
+end
+
+local function battery_image(percentage)
+  local current_width = math.floor(battery_full_width * percentage)
+  if current_width < 1 then
+    current_width = 1
+  end
+
+  local obj = {
+    margin_right = (battery_full_width - current_width) + 2.0,
+    width = current_width,
+  }
+  if percentage <= 0.4 then
+    obj.bg_image_src = battery_low_img
+  end
   return lvgl.Style(obj)
 end
 
@@ -311,37 +327,22 @@ local theme = {
     }},
   },
   battery_0 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = 1.0,
-      bg_image_src = battery_low_img,
-    }},
+    {lvgl.PART.MAIN, battery_image(0.0)},
   },
   battery_20 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = battery_width * 0.2,
-      bg_image_src = battery_low_img,
-    }},
+    {lvgl.PART.MAIN, battery_image(0.2)},
   },
   battery_40 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = battery_width * 0.4,
-      bg_image_src = battery_low_img,
-    }},
+    {lvgl.PART.MAIN, battery_image(0.4)},
   },
   battery_60 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = battery_width * 0.6,
-    }},
+    {lvgl.PART.MAIN, battery_image(0.6)},
   },
   battery_80 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = battery_width * 0.8,
-    }},
+    {lvgl.PART.MAIN, battery_image(0.8)},
   },
   battery_100 = {
-    {lvgl.PART.MAIN, lvgl.Style {
-      width = battery_width * 1.0,
-    }},
+    {lvgl.PART.MAIN, battery_image(1.0)},
   },
   battery_charge_icon = {
     {lvgl.PART.MAIN, lvgl.Style {
