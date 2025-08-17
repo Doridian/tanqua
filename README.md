@@ -9,5 +9,3 @@
 - See if gradient can be improved on selected listitems (top and bottom border pixel?)
 
 - Make toggleboxes green/gray
-
-- Battery graph decreases from wrong side
