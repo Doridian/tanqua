@@ -41,19 +41,20 @@ local function disabled_highlighted_bg(obj)
   return lvgl.Style(obj)
 end
 
-local function battery_image(percentage)
+local function battery_image(percentage, obj)
+  obj = obj or {}
+
   local current_width = math.floor(battery_full_width * percentage)
   if current_width < 1 then
     current_width = 1
   end
 
-  local obj = {
-    margin_right = (battery_full_width - current_width) + 2.0,
-    width = current_width,
-  }
+  obj.margin_right = (battery_full_width - current_width) + 2.0
+  obj.width = current_width
   if percentage <= 0.4 then
     obj.bg_image_src = battery_low_img
   end
+
   return lvgl.Style(obj)
 end
 
@@ -315,16 +316,15 @@ local theme = {
     }},
   },
   battery = {
-    {lvgl.PART.MAIN, lvgl.Style {
+    {lvgl.PART.MAIN, battery_image(1.0, {
       height = 8,
-      margin_right = 2,
       margin_bottom = 2,
       bg_opa = lvgl.OPA(0),
       bg_image_opa = lvgl.OPA(100),
       bg_image_src = lvgl.ImgData("//sd/.themes/tanqua/battery_high.png"),
       bg_image_tiled = true,
       image_opa = lvgl.OPA(0),
-    }},
+    })},
   },
   battery_0 = {
     {lvgl.PART.MAIN, battery_image(0.0)},
