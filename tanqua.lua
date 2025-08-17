@@ -11,19 +11,22 @@ local border_color = "#888888"
 local highlight_start_color = "#0499d1"
 local highlight_end_color = "#0e6bb1"
 
+local highlight_green_start_color = "#04d199"
+local highlight_green_end_color = "#0eb16b"
+
 local disabled_highlight_start_color = "#d1d1d1"
 local disabled_highlight_end_color = "#b1b1b1"
 
 local battery_full_width = 17.0
 local battery_low_img = lvgl.ImgData("//sd/.themes/tanqua/battery_low.png")
 
-local function highlighted_bg(obj)
+local function highlighted_bg(obj, green)
   obj = obj or {}
   obj.bg_opa = lvgl.OPA(100)
   obj.text_color = "#ffffff"
-  obj.bg_color = highlight_start_color
+  obj.bg_color = green and highlight_green_start_color or highlight_start_color
   obj.bg_grad_dir = 1
-  obj.bg_grad_color = highlight_end_color
+  obj.bg_grad_color = green and highlight_green_end_color or highlight_end_color
   obj.image_recolor_opa = lvgl.OPA(100)
   obj.image_recolor = "#ffffff"
   return lvgl.Style(obj)
@@ -131,8 +134,14 @@ local theme = {
       image_recolor = text_color,
       flex_cross_place = lvgl.FLEX_ALIGN.CENTER,
       pad_column = 4,
+      bg_image_src = lvgl.ImgData("//sd/.themes/tanqua/chevron.png"),
+      bg_image_tiled = false,
+      bg_image_opa = lvgl.OPA(100),
     }},
-    {lvgl.PART.MAIN | lvgl.STATE.FOCUSED, highlighted_bg()},
+    {lvgl.PART.MAIN | lvgl.STATE.FOCUSED, highlighted_bg({
+      bg_image_recolor = background_color,
+      bg_image_recolor_opa = lvgl.OPA(100),
+    })},
   },
   bar = {
     {lvgl.PART.MAIN, lvgl.Style {
@@ -210,7 +219,7 @@ local theme = {
       radius = 32767, -- LV_RADIUS_CIRCLE = 0x7fff
       bg_color = background_color,
     }},
-    {lvgl.PART.INDICATOR | lvgl.STATE.CHECKED, highlighted_bg()},
+    {lvgl.PART.INDICATOR | lvgl.STATE.CHECKED, highlighted_bg(nil, true)},
     {lvgl.PART.KNOB, lvgl.Style {
       radius = 32767, -- LV_RADIUS_CIRCLE = 0x7fff
       bg_opa = lvgl.OPA(100),
