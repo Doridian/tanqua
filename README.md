@@ -11,3 +11,5 @@
 - See if gradient can be improved on selected listitems (top and bottom border pixel?)
 
 - Make toggleboxes green/gray
+
+- Use background darkening to show selected row, dont color in radio buttons
